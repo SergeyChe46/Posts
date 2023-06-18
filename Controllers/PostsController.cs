@@ -98,5 +98,23 @@ namespace Posts.Controllers
             }
             return BadRequest();
         }
+        /// <summary>
+        /// Удаляет запись
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromQuery] Guid id)
+        {
+            try
+            {
+                await _repository.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

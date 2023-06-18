@@ -21,6 +21,15 @@ namespace Posts.Repository
             }
         }
 
+        public async Task Delete(Guid id)
+        {
+            var query = "DELETE FROM Post WHERE Id = @id";
+            using (var cursor = _context.Connect)
+            {
+                await cursor.ExecuteAsync(query, new { id });
+            }
+        }
+
         public async Task<IEnumerable<Post>> GetAll()
         {
             string query = "SELECT * FROM Post";
