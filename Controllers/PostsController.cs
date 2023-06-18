@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Posts.Models;
 using Posts.Models.ViewModels;
 using Posts.Repository;
+using Posts.Services.Logging;
 using Posts.Services.Mapping;
 
 namespace Posts.Controllers
@@ -11,8 +12,10 @@ namespace Posts.Controllers
     public class PostsController : ControllerBase
     {
         private readonly IRepository<Post> _repository;
-        public PostsController(IRepository<Post> repository)
+        private readonly ILoggerService _logger;
+        public PostsController(IRepository<Post> repository, ILoggerService logger)
         {
+            _logger = logger;
             _repository = repository;
         }
         /// <summary>
@@ -25,6 +28,7 @@ namespace Posts.Controllers
             try
             {
                 var posts = await _repository.GetAll();
+                _logger.LogInfo("Ok");
                 return Ok(posts);
             }
             catch (Exception ex)

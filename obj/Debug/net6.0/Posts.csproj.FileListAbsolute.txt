@@ -28,3 +28,6 @@ C:\Users\Сергей\Projects\CSharp\Posts\obj\Debug\net6.0\Posts.pdb
 C:\Users\Сергей\Projects\CSharp\Posts\obj\Debug\net6.0\Posts.genruntimeconfig.cache
 C:\Users\Сергей\Projects\CSharp\Posts\obj\Debug\net6.0\ref\Posts.dll
 C:\Users\Сергей\Projects\CSharp\Posts\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\Сергей\Projects\CSharp\Posts\bin\Debug\net6.0\nlog.config
+C:\Users\Сергей\Projects\CSharp\Posts\bin\Debug\net6.0\NLog.dll
+C:\Users\Сергей\Projects\CSharp\Posts\bin\Debug\net6.0\NLog.Extensions.Logging.dll
