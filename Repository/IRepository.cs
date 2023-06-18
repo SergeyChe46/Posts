@@ -10,5 +10,6 @@ namespace Posts.Repository
         Task<IEnumerable<T>> GetAll();
         Task<T> GetById(Guid guid);
         Task Create(T entity);
+        Task Update(T entity);
     }
 }

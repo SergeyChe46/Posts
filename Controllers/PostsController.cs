@@ -73,5 +73,30 @@ namespace Posts.Controllers
             }
             return BadRequest();
         }
+        /// <summary>
+        /// Обновляет данные записи.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="postViewModel"></param>
+        /// <returns>Результат выполнения.</returns>
+        [HttpPatch]
+        public async Task<IActionResult> Update([FromQuery] Guid id, [FromBody] PostViewModel postViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Post post = PostMapping.PostMapper(postViewModel);
+                post.Id = id;
+                try
+                {
+                    await _repository.Update(post);
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, ex.Message);
+                }
+            }
+            return BadRequest();
+        }
     }
 }

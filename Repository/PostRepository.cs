@@ -40,5 +40,14 @@ namespace Posts.Repository
                 return post;
             }
         }
+
+        public async Task Update(Post entity)
+        {
+            string query = "UPDATE Post SET Title = @title, Content = @content, UpdatedAt = current_timestamp WHERE Id = @Id";
+            using (var cursor = _context.Connect)
+            {
+                await cursor.ExecuteAsync(query, new { entity.Title, entity.Content, entity.Id });
+            }
+        }
     }
 }
