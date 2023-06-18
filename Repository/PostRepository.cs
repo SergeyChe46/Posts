@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Dapper;
 using Posts.Context;
 using Posts.Models;
@@ -16,9 +12,13 @@ namespace Posts.Repository
             _context = context;
         }
 
-        public Task Create(Post entity)
+        public async Task Create(Post entity)
         {
-            throw new NotImplementedException();
+            var query = "INSERT INTO Post(title, content) VALUES (@title, @content)";
+            using (var cursor = _context.Connect)
+            {
+                var result = await cursor.ExecuteAsync(query, new { entity.Title, entity.Content });
+            }
         }
 
         public async Task<IEnumerable<Post>> GetAll()

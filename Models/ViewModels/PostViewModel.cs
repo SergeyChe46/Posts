@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Posts.Models.DTO
+namespace Posts.Models.ViewModels
 {
-    public class PostDTO
+    public class PostViewModel
     {
         public string Title { get; set; }
         public string Content { get; set; }

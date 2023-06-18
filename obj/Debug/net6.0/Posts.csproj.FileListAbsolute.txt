@@ -27,3 +27,4 @@ C:\Users\Сергей\Projects\CSharp\Posts\obj\Debug\net6.0\refint\Posts.dll
 C:\Users\Сергей\Projects\CSharp\Posts\obj\Debug\net6.0\Posts.pdb
 C:\Users\Сергей\Projects\CSharp\Posts\obj\Debug\net6.0\Posts.genruntimeconfig.cache
 C:\Users\Сергей\Projects\CSharp\Posts\obj\Debug\net6.0\ref\Posts.dll
+C:\Users\Сергей\Projects\CSharp\Posts\bin\Debug\net6.0\AutoMapper.dll

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Posts.Models;
+using Posts.Models.ViewModels;
 using Posts.Repository;
+using Posts.Services.Mapping;
 
 namespace Posts.Controllers
 {
@@ -16,7 +18,7 @@ namespace Posts.Controllers
         /// <summary>
         /// Возвращает все записи.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Все записи.</returns>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -34,7 +36,7 @@ namespace Posts.Controllers
         /// Возвращает запись с Id.
         /// </summary>
         /// <param name="guid">Id записи.</param>
-        /// <returns></returns>
+        /// <returns>Запись.</returns>
         [HttpGet("{guid}")]
         public async Task<IActionResult> GetById(Guid guid)
         {
@@ -47,6 +49,29 @@ namespace Posts.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
+        }
+        /// <summary>
+        /// Создаёт запись в базе данных.
+        /// </summary>
+        /// <param name="postViewModel">Модель для ввода данных.</param>
+        /// <returns>Результат выполнения.</returns>
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] PostViewModel postViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Post newPost = PostMapping.PostMapper(postViewModel);
+                try
+                {
+                    await _repository.Create(newPost);
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, ex.Message);
+                }
+            }
+            return BadRequest();
         }
     }
 }
