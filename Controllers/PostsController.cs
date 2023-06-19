@@ -15,6 +15,7 @@ namespace Posts.Controllers
         private readonly IRepository<Post> _repository;
         private readonly ILoggerService _logger;
         private readonly IMemoryCache _cache;
+        private const string cachingKey = "postsList";
         public PostsController(IRepository<Post> repository, ILoggerService logger, IMemoryCache cache)
         {
             _cache = cache;
@@ -28,16 +29,26 @@ namespace Posts.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            try
+            if (!_cache.TryGetValue(cachingKey, out IEnumerable<Post> posts))
             {
-                var posts = await _repository.GetAll();
-                return Ok(posts);
+                try
+                {
+                    posts = await _repository.GetAll();
+                    var cacheEntryOptions = new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromSeconds(60))
+                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(3600))
+                        .SetPriority(CacheItemPriority.Normal)
+                        .SetSize(1024);
+                    _cache.Set(cachingKey, posts, cacheEntryOptions);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex.Message);
+                    return StatusCode(500, ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
-            }
+            else { System.Console.WriteLine("Get from cache"); }
+            return Ok(posts);
         }
         /// <summary>
         /// Возвращает запись с Id.
