@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Posts.Models;
 using Posts.Models.ViewModels;
 using Posts.Repository;
@@ -13,8 +14,10 @@ namespace Posts.Controllers
     {
         private readonly IRepository<Post> _repository;
         private readonly ILoggerService _logger;
-        public PostsController(IRepository<Post> repository, ILoggerService logger)
+        private readonly IMemoryCache _cache;
+        public PostsController(IRepository<Post> repository, ILoggerService logger, IMemoryCache cache)
         {
+            _cache = cache;
             _logger = logger;
             _repository = repository;
         }
@@ -28,11 +31,11 @@ namespace Posts.Controllers
             try
             {
                 var posts = await _repository.GetAll();
-                _logger.LogInfo("Ok");
                 return Ok(posts);
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 return StatusCode(500, ex.Message);
             }
         }
@@ -51,6 +54,7 @@ namespace Posts.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 return StatusCode(500, ex.Message);
             }
         }
@@ -68,10 +72,12 @@ namespace Posts.Controllers
                 try
                 {
                     await _repository.Create(newPost);
+                    _logger.LogInfo($"{postViewModel.Title} was created.");
                     return Ok();
                 }
                 catch (Exception ex)
                 {
+                    _logger.LogError(ex.Message);
                     return StatusCode(500, ex.Message);
                 }
             }
@@ -97,6 +103,7 @@ namespace Posts.Controllers
                 }
                 catch (Exception ex)
                 {
+                    _logger.LogError(ex.Message);
                     return StatusCode(500, ex.Message);
                 }
             }
@@ -113,10 +120,12 @@ namespace Posts.Controllers
             try
             {
                 await _repository.Delete(id);
+                _logger.LogInfo($"The Post with id - {id} was deleted.");
                 return Ok();
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 return StatusCode(500, ex.Message);
             }
         }
