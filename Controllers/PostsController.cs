@@ -47,7 +47,7 @@ namespace Posts.Controllers
                     return StatusCode(500, ex.Message);
                 }
             }
-            else { System.Console.WriteLine("Get from cache"); }
+            else { System.Console.WriteLine("GET FROM CACHE"); }
             return Ok(posts);
         }
         /// <summary>
@@ -83,7 +83,7 @@ namespace Posts.Controllers
                 try
                 {
                     await _repository.Create(newPost);
-                    _logger.LogInfo($"{postViewModel.Title} was created.");
+                    _cache.Remove(cachingKey);
                     return Ok();
                 }
                 catch (Exception ex)
@@ -110,6 +110,7 @@ namespace Posts.Controllers
                 try
                 {
                     await _repository.Update(post);
+                    _cache.Remove(cachingKey);
                     return Ok();
                 }
                 catch (Exception ex)
