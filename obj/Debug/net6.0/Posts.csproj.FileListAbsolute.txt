@@ -31,3 +31,9 @@ C:\Users\Сергей\Projects\CSharp\Posts\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\Сергей\Projects\CSharp\Posts\bin\Debug\net6.0\nlog.config
 C:\Users\Сергей\Projects\CSharp\Posts\bin\Debug\net6.0\NLog.dll
 C:\Users\Сергей\Projects\CSharp\Posts\bin\Debug\net6.0\NLog.Extensions.Logging.dll
+C:\Users\Сергей\Projects\CSharp\Posts\bin\Debug\net6.0\Post.UI\angular.json
+C:\Users\Сергей\Projects\CSharp\Posts\bin\Debug\net6.0\Post.UI\package-lock.json
+C:\Users\Сергей\Projects\CSharp\Posts\bin\Debug\net6.0\Post.UI\package.json
+C:\Users\Сергей\Projects\CSharp\Posts\bin\Debug\net6.0\Post.UI\tsconfig.app.json
+C:\Users\Сергей\Projects\CSharp\Posts\bin\Debug\net6.0\Post.UI\tsconfig.json
+C:\Users\Сергей\Projects\CSharp\Posts\bin\Debug\net6.0\Post.UI\tsconfig.spec.json
