@@ -5,5 +5,5 @@ export interface IApiService<T> {
   getById(id: string): Observable<T>;
   create(newEntity: T): void;
   update(updatedEntity: T): void;
-  delete(deletedEntity: string): void;
+  delete(deletedEntityId: string): void;
 }

@@ -11,15 +11,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
 builder.Services.AddCors(setup =>
-    setup.AddPolicy("Angular", cors =>
-        cors.AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowAnyOrigin()));
+    setup.AddDefaultPolicy(cors =>
+    {
+        cors.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    }));
 
 builder.Services.RegisterDI();
 
 var app = builder.Build();
-
+app.UseCors();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

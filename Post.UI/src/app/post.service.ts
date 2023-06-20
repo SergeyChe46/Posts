@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class PostService implements IApiService<Post> {
-  private url: string = 'https://localhost:7031/Posts/';
+  private url: string = 'https://localhost:7031/Posts';
 
   constructor(private http: HttpClient) {}
 
@@ -16,15 +16,15 @@ export class PostService implements IApiService<Post> {
     return this.http.get<Post[]>(this.url);
   }
   getById(id: string): Observable<Post> {
-    return this.http.get<Post>(this.url + id);
+    return this.http.get<Post>(this.url + '/' + id);
   }
   create(newEntity: Post): void {
-    this.http.post(this.url, newEntity);
+    this.http.post(this.url + '/', newEntity);
   }
   update(updatedEntity: Post): void {
-    this.http.patch(this.url + updatedEntity.id, updatedEntity);
+    this.http.patch(this.url + '/' + updatedEntity.id, updatedEntity);
   }
   delete(deletedEntity: string): void {
-    this.http.delete(this.url + deletedEntity);
+    this.http.delete(this.url + '/' + deletedEntity);
   }
 }
