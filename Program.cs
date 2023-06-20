@@ -10,6 +10,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
+builder.Services.AddCors(setup =>
+    setup.AddPolicy("Angular", cors =>
+        cors.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin()));
 
 builder.Services.RegisterDI();
 
